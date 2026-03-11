@@ -1,0 +1,5 @@
+.claude/
+out/
+node_modules/
+*.vsix
+.vscodeignore

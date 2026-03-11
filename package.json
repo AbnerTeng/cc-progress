@@ -1,0 +1,63 @@
+{
+  "name": "claude-code-progress",
+  "displayName": "Claude Code Progress",
+  "description": "Shows Claude Code 5-hour window & weekly token usage progress bars in the status bar",
+  "version": "0.1.0",
+  "publisher": "AbnerDen",
+  "repository": { "type": "git", "url": "https://github.com/AbnerTeng/cc-progress" },
+  "engines": { "vscode": "^1.85.0" },
+  "categories": ["Other"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "claudeCodeProgress.showDetails",
+        "title": "Claude Code Progress: Show Details"
+      },
+      {
+        "command": "claudeCodeProgress.openSettings",
+        "title": "Claude Code Progress: Open Settings"
+      }
+    ],
+    "configuration": {
+      "title": "Claude Code Progress",
+      "properties": {
+        "claudeCodeProgress.plan": {
+          "type": "string",
+          "default": "pro",
+          "enum": ["pro", "max5", "max20", "api"],
+          "enumDescriptions": [
+            "Pro — ~44k tokens / 5h window",
+            "Max ×5 — ~88k tokens / 5h window",
+            "Max ×20 — ~220k tokens / 5h window",
+            "API — pay-as-you-go, set custom limits"
+          ],
+          "description": "Your Claude Code subscription plan (used to calculate progress bar limits)"
+        },
+        "claudeCodeProgress.weeklyTokenLimit": {
+          "type": "number",
+          "default": 0,
+          "description": "Custom weekly token limit (0 = auto from plan). Override if you know your actual limit."
+        },
+        "claudeCodeProgress.refreshSeconds": {
+          "type": "number",
+          "default": 30,
+          "description": "How often to refresh stats (seconds)"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.0",
+    "@vscode/vsce": "^2.22.0"
+  }
+}
